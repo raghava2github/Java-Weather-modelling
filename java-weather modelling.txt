@@ -1,0 +1,52 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+        
+        JFrame frame = new JFrame("Weather Modeling");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null); 
+
+        
+        JLabel titleLabel = new JLabel("Weather Modeling", SwingConstants.CENTER);
+        titleLabel.setBounds(50, 20, 300, 30);
+        frame.add(titleLabel);
+
+
+        JLabel locationLabel = new JLabel("Select a location:");
+        locationLabel.setBounds(50, 70, 120, 25);
+        frame.add(locationLabel);
+
+        String[] locations = {"Select", "New York", "Los Angeles", "Chicago", "Houston", "Miami"};
+        JComboBox<String> locationDropdown = new JComboBox<>(locations);
+        locationDropdown.setBounds(180, 70, 150, 25);
+        frame.add(locationDropdown);
+
+        JLabel resultLabel = new JLabel("");
+        resultLabel.setBounds(50, 150, 300, 80);
+        frame.add(resultLabel);
+
+        locationDropdown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String location = (String) locationDropdown.getSelectedItem();
+                if (location != null && !location.equals("Select")) {
+                    Random random = new Random();
+                    int temperature = random.nextInt(26) + 10; 
+                    int humidity = random.nextInt(71) + 30;    
+                    String precipitation = random.nextBoolean() ? "Yes" : "No";
+
+                    
+                    resultLabel.setText("<html>Location: " + location + "<br>Temperature: " + temperature + "°C<br>Humidity: " + humidity + "%<br>Precipitation: " + precipitation + "</html>");
+                }
+            }
+        });
+
+        
+        frame.setVisible(true);
+    }
+}
